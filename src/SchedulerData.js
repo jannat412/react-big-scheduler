@@ -406,6 +406,21 @@ export default class SchedulerData {
         this._attachEvent(event);
         this._createRenderData();
     }
+    
+    upgradeEvent(event, newSlotId, newSlotName, newTitle, newStart, newEnd){
+        this._detachEvent(event);
+        if(this.isEventPerspective) {
+            event.groupId = newSlotId;
+            event.groupName = newSlotName;
+        }
+        else
+            event.resourceId = newSlotId;
+        event.end = newEnd;
+        event.start = newStart;
+        event.title = newTitle;
+        this._attachEvent(event);
+        this._createRenderData();
+    }
 
     isEventInTimeWindow(eventStart, eventEnd, windowStart, windowEnd) {
         return eventStart < windowEnd && eventEnd >windowStart;
